@@ -197,7 +197,7 @@ input[type=range]::-ms-thumb {
 }
 
 .last{
-	margin-top:189px;
+	margin-top:169px;
 	margin-left:-42px;
 	padding: 30px;
 	float: left;
@@ -306,8 +306,8 @@ input[type=range]::-ms-thumb {
 
 .special{
 	padding:69px;
-	width: 57%;
-	height: 42%;
+	width: 42%;
+	height: 34%;
 	float:left;
 }
 
