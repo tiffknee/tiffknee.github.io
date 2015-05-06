@@ -1,0 +1,414 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	background: #fff;
+	font: 1em/1.2 helvetica, arial, sans-serif;
+	color: #000;
+}
+
+a:link, a:visited { color: #000; text-decoration: none; border-bottom: 1px solid gray; }
+a:focus, a:hover, a:active { color: #000; text-decoration: none; border-bottom: 3px solid gray; }
+
+.header {
+	padding: .75em 5%;
+	background-color: navajowhite;
+	color: indianred;
+	left: 0;
+	top: 0;
+	position:fixed;
+	margin: 0px;
+	width: 100%;
+	z-index: 5000;
+}
+
+h1{
+	font-family: 'Coustard', serif;
+	font-weight: 400;
+	font-size: 0.25in;
+	display: inline-block;
+}
+
+h6 {
+	color: darkslategray;
+	font-style: oblique;
+	font-family: 'Magra', sans-serif;
+	display: inline-block;
+	margin-left:25px;
+}
+
+.header span{
+	font-size:9px;
+	margin-left:420px;
+}
+
+.nav-bar {
+	padding: .25em 5%;
+	border-bottom: 2px dotted olivedrab;
+	left: 0;
+	top: 0;
+	position:fixed;
+	background-color: #fff;
+	margin-top: 25px;
+	width: 100%;
+	z-index: 3000;
+}
+
+.crops {
+	display: inline-block;
+	padding-right: .7em;
+	padding-top:1.55em;
+}
+
+.crops a, .crops img{
+	border:0;
+	width:75px;
+	padding-bottom:17px;
+}
+
+.groupings {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.controls {
+	display: inline-block;
+	padding: .7em 1.25em;
+}
+
+.fix{
+	margin-top:35px;
+}
+
+label {
+	font-size: 11px;
+	cursor: default;
+}
+
+.controls input {
+	padding-left:5px;
+	padding-right:5px;
+	-webkit-appearance:button;
+	border: solid 2px maroon;
+	background-color: #fff;
+	white-space: nowrap;
+	overflow:hidden;
+	width:15px;
+	height:15px;
+	margin-right:10px;
+}
+
+.controls input:checked {
+	background-color: #006a5a;
+}
+
+input[disabled]{
+	background-color: #aaa;
+	cursor: default !important;
+}
+
+.controls input[type=radio] {  border-radius:15px; cursor: pointer; }
+.controls input[type=checkbox] {  border-radius:4px; cursor: pointer; }
+.controls input[type=range] {
+	border-radius:4px;
+	-webkit-appearance: none;
+	margin: 10px 0;
+	width: 300px;
+}
+
+input[type=range]:focus,input[type=checkbox],input[type=radio] {
+	outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	width: 300px;
+	height: 12.8px;
+	cursor: pointer;
+	animate: 0.2s;
+}
+input[type=range]::-webkit-slider-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 7px;
+	background: #65001c;
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -3.6px;
+}
+input[type=range]::-moz-range-track {
+	width: 300px;
+	height: 12.8px;
+	cursor: pointer;
+	animate: 0.2s;
+}
+input[type=range]::-moz-range-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 7px;
+	background: #65001c;
+	cursor: pointer;
+}
+input[type=range]::-ms-track {
+	width: 300px;
+	height: 12.8px;
+	cursor: pointer;
+	animate: 0.2s;
+	background: transparent;
+	border-color: transparent;
+	border-width: 39px 0;
+	color: transparent;
+}
+input[type=range]::-ms-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 7px;
+	background: #65001c;
+	cursor: pointer;
+}
+
+.content {
+	padding: 2em 0 1em;
+	margin-top: 125px;
+}
+
+.sidebar {
+	float: left;
+	width: 25%;
+	margin-left: 5%;
+	margin-bottom: 1em;
+}
+
+.main {
+	float: left;
+	width: 45%;
+	margin-left: 5%;
+	margin-bottom: 1em;
+}
+
+.fixx{
+	margin-top:221px;
+}
+
+.fixxx{
+	margin-left:100px;
+}
+
+.last{
+	margin-top:189px;
+	margin-left:-42px;
+	padding: 30px;
+	float: left;
+	width: 20%;
+	background-color: khaki;
+	font-family: 'Magra', sans-serif;
+	font-size: 13px;
+}
+
+.buttonSOM{
+	border: none;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	background: none;
+	cursor: pointer;
+	padding: 25px 80px;
+	display: inline-block;
+	margin: 15px 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+
+}
+
+.btn-2 {
+	background: #cb4e4e;
+	color: #fff;
+	box-shadow: 0 6px #ab3c3c;
+	-webkit-transition: none;
+	-moz-transition: none;
+	transition: none;
+}
+
+.btn-2i {
+	border-radius: 50%;
+	width: 90px;
+	height: 90px;
+	padding: 0;
+}
+
+.btn-2i:hover {
+	box-shadow: 0 4px #ab3c3c;
+	top: 2px;
+}
+
+.btn-2i:active {
+	box-shadow: 0 0 #ab3c3c;
+	top: 6px;
+}
+
+#thanks{
+	width: 100%;
+	color: brown;
+}
+
+.footer {
+	clear: both;
+	padding: 1em 5%;
+	background-color: moccasin;
+	text-align: center;
+}
+
+.footer h5, .footer a {
+	color: olivedrab;
+	font-weight:100;
+}
+
+/*--------------data viz---------------*/
+
+#map{
+	width:100%;
+	height:100%;
+}
+
+#paraCoord{
+	width:100%;
+	height:100%;
+}
+
+#scattPlot{
+	width:100%;
+	height:100%;
+	margin-left:69px;
+	margin-top:42px;
+}
+
+.info{
+	width:100%;
+	height:100%;
+	padding: 30px;
+	background-color: palegoldenrod;
+	font-family: 'Magra', sans-serif;
+	font-size: 13px;
+	border: 1px dashed khaki;
+}
+
+.info img{
+	width:100%;
+}
+
+.special{
+	padding:69px;
+	width: 57%;
+	height: 42%;
+	float:left;
+}
+
+.linee{
+	float: left;
+	width: 53%;
+	margin-left: 5%;
+	margin-bottom: 1em;
+}
+
+#linegraph1, #linegraph2{
+	display:inline-block;
+	width:44%;
+	margin:22px;
+}
+
+#linegraph3, #linegraph4, #linegraph5{
+	display:inline-block;
+	width:26%;
+	margin:22px;
+}
+
+svg {
+	font: 10px sans-serif;
+}
+
+.extent {
+	fill: #000;
+	fill-opacity: .125;
+	stroke: #fff;
+	shape-rendering: crispEdges;
+}
+
+/*--------------para coord---------------*/
+
+.background path {
+	fill: none;
+	stroke: #ccc;
+	stroke-opacity: .4;
+	shape-rendering: crispEdges;
+}
+
+.foreground path {
+	fill: none;
+	stroke-opacity: 1;
+}
+
+.axis2 line,
+.axis2 path {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.axis2 text {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+	cursor: move;
+}
+
+/*--------------scatt plot---------------*/
+
+circle {
+	fill-opacity: 1;
+}
+
+circle.hidden {
+	fill: #ccc !important;
+	fill-opacity: .7;
+}
+
+.axis,
+.frame {
+	shape-rendering: crispEdges;
+}
+
+.axis line,
+.axis path {
+	stroke: #ddd;
+	display: none;
+}
+
+.frame {
+	fill: none;
+	stroke: #aaa;
+}
+
+/*--------------line graph---------------*/
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.x.axis path {
+	display: none;
+}
+
+.line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}

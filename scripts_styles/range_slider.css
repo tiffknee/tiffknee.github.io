@@ -1,0 +1,119 @@
+/**
+
+RANGESLIDER STYLE FOR HARVARD SEAS CS-171: DATA VISUALIZATION COURSE FINAL PROJECT HYDROCROPMONITOR
+Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar
+and http://cssdeck.com/item/276/pure-css-arrow-with-border-tooltip
+
+ */
+
+.ui-rangeSlider{
+  height: 17px;
+  width: 600px;
+  padding-top: 20px;
+}
+
+.ui-rangeSlider,
+.ui-rangeSlider-container,
+.ui-rangeSlider-arrow{
+  -webkit-box-sizing:content-box;
+     -moz-box-sizing:content-box;
+          box-sizing:content-box;
+}
+
+.ui-rangeSlider-withArrows .ui-rangeSlider-container,
+.ui-rangeSlider-noArrow .ui-rangeSlider-container{
+  margin: 0 15px;
+  -moz-border-radius: 4px;
+       border-radius: 4px;
+}
+
+.ui-rangeSlider-container,
+.ui-rangeSlider-arrow{
+ 	height: 17px;
+}
+
+.ui-rangeSlider-container,
+.ui-rangeSlider-label{
+  background: #67707F;
+}
+
+.ui-rangeSlider-arrow{
+  width:14px;
+  cursor:pointer;
+}
+
+.ui-rangeSlider-arrow-inner{
+  position: absolute;
+  top: 50%;
+  border: 10px solid transparent;
+  width:0;
+  height:0;
+  margin-top: -10px;
+}
+
+.ui-rangeSlider-leftArrow .ui-rangeSlider-arrow-inner{
+  border-right:10px solid #a4a8b7;
+  left: 0;
+  margin-left: -8px;
+}
+
+.ui-rangeSlider-leftArrow:hover .ui-rangeSlider-arrow-inner{
+  border-right:10px solid #b3b6c2;
+}
+
+.ui-rangeSlider-rightArrow .ui-rangeSlider-arrow-inner{
+  border-left:10px solid #a4a8b7;
+  right: 0;
+  margin-right: -8px;
+}
+
+.ui-rangeSlider-rightArrow:hover .ui-rangeSlider-arrow-inner{
+  border-left:10px solid #b3b6c2;
+}
+
+.ui-rangeSlider-innerBar{
+  width: 110%;
+  height: 100%;
+  left: -10px;
+  overflow: hidden;
+}
+
+.ui-rangeSlider-bar{
+  background: #65001c;
+  height: 13px;
+  margin:2px 0;
+  -moz-border-radius: 4px;
+       border-radius: 4px;
+  cursor:move;
+  cursor:grab;
+  cursor: -moz-grab;
+}
+
+.ui-rangeSlider-handle{
+	width:10px;
+	height:30px;
+	background: transparent;
+	cursor:col-resize;
+}
+
+.ui-rangeSlider-label{
+  padding: 5px 10px;
+  bottom:40px;
+  -moz-border-radius: 4px;
+       border-radius: 4px;
+  color:white;
+  font-size:15px;
+  cursor:col-resize;
+}
+
+.ui-rangeSlider-label-inner{
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  display: block;
+  z-index:99;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  margin-left: -10px;
+  border-top: 10px solid #888DA0;
+}

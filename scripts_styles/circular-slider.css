@@ -1,0 +1,65 @@
+/*! The MIT License (MIT)
+
+Copyright (c) 2014 Prince John Wesley <princejohnwesley@gmail.com>
+
+ADAPTED FOR HARVARD SEAS CS-171: DATA VISUALIZATION COURSE FINAL PROJECT HYDROCROPMONITOR
+
+**/
+.jcs-indicator, .jcs-value {
+    position: absolute;
+    pointer-events: none
+}
+
+.jcs, .jcs-indicator {
+    box-sizing: border-box
+}
+
+.jcs, .jcs-panel {
+    border-style: solid
+}
+
+.jcs, .jcs-indicator, .jcs-value, .jcs-value img {
+    border-radius: 100%
+}
+
+.jcs {
+    position: relative;
+    border-color: maroon;
+    border-width: 5px;
+    cursor: pointer
+}
+
+.jcs-value {
+    text-align: center;
+    line-height: 4em;
+    color: #fff;
+    background-color: tomato;
+    outline: 0
+}
+
+.jcs-indicator {
+    background-color: #65001c;
+    border: 1px solid #000
+}
+
+.jcs-panel {
+    position: relative;
+    display: inline-block;
+    border-color: transparent;
+    cursor: pointer
+}
+
+.jcs-value img {
+    background: 0 0;
+    width: inherit;
+    height: inherit
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}

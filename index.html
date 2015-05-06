@@ -1,1 +1,559 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>CS-171: hydro CROP monitor ( Ampanavos / Cheng )</title>
+    <meta charset="utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Coustard|Magra:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="scripts_styles/style.css" />
+    <link rel="stylesheet" href="scripts_styles/circular-slider.css" />
+    <link rel="stylesheet" href="scripts_styles/range_slider.css" type="text/css" />
+
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/d3.hexbin.v0.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script src="scripts_styles/circular-slider.js"></script>
+    <script src="scripts_styles/range_slider.js"></script>
+    <script type="text/javascript" src="scripts_styles/som_hexagons.js"></script>
+    <script type="text/javascript" src="scripts_styles/lineChart_class.js"></script>
+    <script type="text/javascript" src="scripts_styles/paraCoord.js"></script>
+    <script type="text/javascript" src="scripts_styles/scattPlot.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>hydro [ C R O P ] monitor</h1>
+        <h6>An interactive visualization of a hydroponic farm.</h6>
+        <span>Navigate to: <a href="#paraCoord">Parallel Coordinates</a> / <a href="#linegraph1">Line Charts</a> / <a href="#scattPlot">Scatterplot Matrix</a> / <a href="#map">Self Organizing Map</a></span>
+    </div>
+
+    <div class="nav-bar">
+
+        <div class="crops">
+            <a href="#"><img src="img/button_berry.jpg"></a>
+            <a href="#"><img src="img/button_shroom.jpg"></a>
+            <a href="#"><img src="img/button_carrot.jpg"></a>
+            <a href="#"><img src="img/button_beat.jpg"></a>
+            <a href="#"><img src="img/button_lemon.jpg"></a>
+        </div>
+
+        <div class="groupings fix">
+            <div class="groupings">
+                <div class="controls">
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkAirTemp" value="airTemperature" checked><label>Air Temperature</label><br>
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkAirHumid" value="humidity" checked><label>Air Humidity</label><br>
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkAirCo2" value="co2" checked><label>Air CO2</label>
+                </div>
+                <div class="controls">
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkMainTemp" value="mainTemperature" checked><label>Main Tank Temperature</label><br>
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkMainPh" value="mainPh" checked><label>Main Tank pH</label><br>
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkMainEc" value="mainEc" checked><label>Main Tank Electroconductivity</label>
+                </div>
+                <div class="controls">
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkSeedTemp" value="seedingTemperature" checked><label>Seeding Tank Temperature</label><br>
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkSeedPh" value="seedingPh" checked><label>Seeding Tank pH</label><br>
+                    <input type="checkbox" onclick="updateCheckboxes()" id="checkSeedEc" value="seedingEc" checked><label>Seeding Tank Electroconductivity</label>
+                </div>
+            </div>
+            <br>
+            <div class="groupings">
+                <div id="sliderDate"></div>
+            </div>
+        </div>
+
+        <div class="groupings">
+            <div class="controls">
+                <div id="sliderI"><label>Start</label></div>
+            </div>
+            <div class="controls">
+                <div id="sliderO"><label>End</label></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content fixx">
+        <div class="sidebar">
+            <div id="paraCoord"></div>
+        </div>
+        <div class="main">
+            <div class="info">
+                <img src="img/corner_stalk0.jpg"><br><br>
+                Corner Stalk is an urban farm that uses Freight Farm’s technology to produce year-round greens. All of their produce are grown in recycled shipping containers which create an extremely energy and water efficient environment. A year round growing season and dense planting allows maximum productivity from a dense urban footprint.
+                <br><br>
+                Using a Controlled Environment Agriculture farm, Boston area consumers are provided with fresh, locally grown leafy greens throughout the seasons. There are currently 5 growing units located on Eagle Hill in East Boston. Each container houses a particular crop species: <b>strawberries, mushrooms, carrots, beats, and lemons</b>!
+                <br><br>
+                Hydroponics ensures that these plants can grow in the best conditions for them. Corner Stalks monitors the most important parameters which make their crops happy.
+                <br><br>
+                <i>Get to know the factors that affect plant growth by brushing the parallel coordinates on the left. Each color represents a different crop, and you can even filter and change the order of the axis, or filter through day and time if you'd like.</i>
+            </div>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+
+    <div class="content">
+        <div class="sidebar">
+            <div class="info">
+                <img src="img/corner_stalk1.jpg"><br><br>
+                Shawn and Connie are the farmers of Corner Stalk. In each growing unit, they check the air's temperature, humidity, and carbon dioxide; as well as the temperature, pH level, and electroconductivity in both the main tanks and seeding tanks.
+                <br><br>
+                There are 2 primary phases in the development of produce. First, the seeds germinate in peat moss plugs for a week. After they sprout into seedlings, they move to the main stacks, where they are bathed in water rich with potent nutrients.
+                <br><br>
+                <i>Use the range slider to filter through the weeks, or the two clock sliders to explore patterns of day/night cycles!</i>
+                <br><br><img src="img/corner_stalk3.jpg">
+            </div>
+        </div>
+        <div class="linee">
+            <div id="linegraph1"></div>
+            <div id="linegraph2"></div>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+
+        <div class="content fixxx">
+            <div id="linegraph3"></div>
+            <div id="linegraph4"></div>
+            <div id="linegraph5"></div>
+        </div>
+
+    <div style="clear: both;"></div>
+
+    <div class="content">
+        <div class="sidebar">
+            <div class="info">
+                What makes produce tasty? Hydroponic allows farmers to experiment with causalities of how to optimize taste and texture. Shawn and Connie have discovered that saturating their crops with delirious red and blue lights augment their colors. A unique mix of nutrients make their herbs really flavorful. Tweaking the many factors of plants lead to many interesting discoveries!
+                <br><br><i>Try brushing the scatterplot matrix to see which of the fruits and vegetables require similar care. Since there are so many variables, graphic displays can help parse raw data dumps into small, easily digestible pieces so growers can make better-informed decisions about their growing operations.</i>
+                <br><br><img src="img/corner_stalk2.jpg">
+                <br><br><img src="img/corner_stalk5.png">
+            </div>
+        </div>
+        <div class="main">
+            <div id="scattPlot"> </div>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+
+    <div class="content">
+        <div class="special">
+            <div id="map" ></div>
+        </div>
+        <div class="last">
+                <button class="buttonSOM btn-2 btn-2i" onclick="specialSOM()">SOM</button><br><br>
+                Of course, the beauty of data analysis is that graphic displays can answer questions about which plants grow particularly well in a controlled environment, as well as where to optimally place them, and so on. The premise behind the Self Organizing Map is to calculate the most efficient layout of crops if Corner Stalk were to use only one greenhouse with regions of varying climates, instead of 5 seperate containers.
+                <br><br><i>Press the button to see it reiterate!</i>
+                <br><br><img src="img/corner_stalk7.jpg" width="100%">
+        </div>
+    </div>
+
+    <div id="thanks">
+        <center>
+            <h1>Thanks to <a href="http://d3js.org/">D3</a> for making these visualizations possible!</h1>
+            <br><br><br><br><br><br>
+            <br><br><br><br><br><br>
+            <br><br><br><br><br><br>
+        </center>
+    </div>
+
+    <div class="footer">
+        <h5>Created for <a href="http://www.cs171.org/">Harvard CS171</a> | 2015 | <a href="https://github.com/spyridon-amp/">Spyridon Ampanavos</a>, <a href="http://micromacro.nu/">Tiffany Cheng</a></h5>
+        <h5>Data from: <a href="http://www.cornerstalk.com/">Corner Stalk</a></h5>
+    </div>
+
+</div>
+
+<script>
+
+    //************************************
+    //*******FOR FINAL PROJECT!!!*********
+    //************************************
+    //TODO: matrix to update
+    //TODO: add button to SOM update or deactivate time for it
+    //TODO: button to become blue onclick
+
+    //global variables
+    var fdata;
+    var filteredEntries = [];
+    var checkedItems =[];
+    var lineGraphs = [];
+    var timeI = 0;
+    var timeO = 0;
+    var dateI;
+    var dateO;
+
+    var initialized = false;
+    var test;//debugging
+
+    var svg = 0;
+    var svg2 = 0;
+    //color
+    color = d3.scale.ordinal()
+            .range(["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#66c2a5"].reverse());
+
+    var sensors = ["airTemperature", "humidity", "co2", "mainPh", "mainEc", "mainTemperature", "seedingPh",
+        "seedingEc", "seedingTemperature"];
+
+    function dataExt(data, sensor, debug) {            //select the minimum and maximum data across all farms
+        var ext = [];
+        data.forEach(function(f) {
+            var values = f.map(function(d) {
+                if (sensor == "createdAt") {return d[sensor]}
+                else {return parseFloat(d[sensor])}
+            });
+            var e = d3.extent(values);
+            if (debug) {console.log(e)}
+            ext.push(e)
+        });
+        return [d3.min(ext.map(function(d) { return d[0]})),
+            d3.max(ext.map(function(d) { return d[1]}))];
+    }
+
+    function get_av_obj (data, mode) { //takes data of one farm and returns one object with the average values
+        var farm_v  = jQuery.extend({}, data[0]);
+        sensors.forEach(function (s) {
+            var range = d3.extent(data.map(function (d) {
+                return parseFloat(d[s])
+            }));
+            range = [d3.min(range), d3.max(range)];
+            var av = d3.mean(data.map(function (d) {
+                return parseFloat(d[s])
+            }));
+            farm_v[s] = av;
+            if (mode == "debug") console.log(s + " : " + range + " | avg: " + parseFloat(av));
+        });
+        return farm_v
+    }
+
+    function reduceTime(data, h) { //reduces the data by averaging every h hours
+        console.log("reducing data \n   ");
+        var farm_list = [];
+        for (var j = 0; j < data.length; ++j) {//loop through 5 farms
+            var time_list = [];
+            var adate = new Date(dateI);
+            var next_hour = adate.getHours();
+            console.log("enter farm"+ (j+1));
+            while (adate < dateO) {
+                var hour_list = [];
+                for (var i = 0; i < data[j].length; ++i) {//loop through entries in current farm
+                    if ((data[j][i]["createdAt"].getDate() == adate.getDate()) &&
+                            (data[j][i]["createdAt"].getHours() == adate.getHours())) {//check createdAt with current date being looped
+                        hour_list.push(data[j][i]);//add those to list if same
+                    }
+                }
+                if (hour_list.length > 0) time_list.push(hour_list);
+                next_hour  = adate.getHours() + h;
+                var next_day = Math.floor(next_hour / 24);
+                adate.setHours(next_hour % 24);
+                adate.setDate(adate.getDate() + next_day);
+            }
+            farm_list.push(time_list);
+        }
+        return farm_list.map(function(d) {
+            return d.map(function(f) {
+                return get_av_obj(f)
+            });
+        });
+    }
+
+    function specialSOM(){
+        console.log("button pressed");
+        startSom(30, 30, filteredEntries);
+    }
+
+    function updateCheckboxes(){
+        var temp = [];
+        d3.selectAll("input[type=checkbox]:checked")[0].forEach(function(d) {
+            temp.push(d["value"]);
+        });
+        checkedItems = temp;
+        if (checkedItems.length < 3){
+            d3.selectAll("input[type=checkbox]:checked")[0].forEach(function(d) {
+                d["disabled"] = true
+        })
+        } else {
+            d3.selectAll("input[type=checkbox]:checked")[0].forEach(function(d) {
+                d["disabled"] = false
+            })
+        }
+
+        updateVisualizations();
+
+    }
+
+    function updateVisualizations(p) {
+
+        startPara(filteredEntries);
+        //startScatt(filteredEntries);
+
+        lineGraphs.forEach(function(l) {
+            l.onChange(filteredEntries);
+
+        });
+
+        console.log(p);
+
+    }
+
+    $(function () {
+
+        function visualizations() {
+
+            checkedItems = sensors;
+            filteredEntries = fdata;
+
+//            sensors.forEach(function(s) {
+//                var div = "#"+s;
+//                console.log(div);
+//                lineGraphs.push(new LineVis(div, filteredEntries, s));
+//            });
+
+            //////for some reason this was the only way...
+
+            for(var i=0; i<2; ++i) {
+                lineGraphs.push(new LineVis("#linegraph1", filteredEntries, sensors[i]));
+            }
+
+            for(var j=2; j<3; ++j) {
+                lineGraphs.push(new LineVis("#linegraph2", filteredEntries, sensors[j]));
+            }
+
+            for(var k=3; k<5; ++k) {
+                lineGraphs.push(new LineVis("#linegraph3", filteredEntries, sensors[k]));
+            }
+
+            for(var t=5; t<7; ++t) {
+                lineGraphs.push(new LineVis("#linegraph4", filteredEntries, sensors[t]));
+            }
+
+            for(var c=7; c<9; ++c) {
+                lineGraphs.push(new LineVis("#linegraph5", filteredEntries, sensors[c]));
+            }
+
+//            line1 = new LineVis("#airTemperature", filteredEntries, "airTemperature");
+//            line2 = new LineVis("#humidity", filteredEntries, "humidity");
+//            line3 = new LineVis("#co2", filteredEntries, "co2");
+//            line4 = new LineVis("#mainPh", filteredEntries, "mainPh");
+//            line5 = new LineVis("#mainEc", filteredEntries, "mainEc");
+//            line6 = new LineVis("#mainTemperature", filteredEntries, "mainTemperature");
+//            line7 = new LineVis("#seedingPh", filteredEntries, "seedingPh");
+//            line8 = new LineVis("#seedingEc", filteredEntries, "seedingEc");
+//            line9 = new LineVis("#seedingTemperature", filteredEntries, "seedingTemperature");
+
+            startSom(30, 30, filteredEntries);
+            startPara(filteredEntries);
+            startScatt(filteredEntries);
+
+            //slider clock start
+            var sliderI = $('#sliderI').CircularSlider({
+                min: 0,
+                max: 359,
+                value: timeI,
+                selectable: true,
+                slide: function (ui, value) {
+                    timeI = value;
+                    filteredEntries = filterHours(filterDays(fdata));
+                    if (initialized) {
+                        updateVisualizations("sliderI")
+                    }
+                }
+            });
+            //slider clock end
+            var sliderO = $('#sliderO').CircularSlider({
+                min: 0,
+                max: 359,
+                value: timeO,
+                selectable: true,
+                slide: function (ui, value) {
+                    timeO = value;
+                    filteredEntries = filterHours(filterDays(fdata));
+                    if (initialized) {
+                        updateVisualizations("sliderO")
+                    }
+                    else {initialized = true}
+                }
+            });
+
+            var sliderDate = $("#sliderDate");
+
+            sliderDate.dateRangeSlider({
+                bounds: {
+                    min: dateI,
+                    max: dateO
+                },
+                defaultValues: {
+                    min: dateI,
+                    max: dateO
+                },
+                valueLabels: "change",
+                formatter: function (val) {
+                    var days = val.getDate(),
+                            month = val.getMonth() + 1,
+                            year = val.getFullYear();
+                    return days + "." + month + "." + year;
+                }
+            });
+
+            sliderDate.bind("valuesChanged", function (e, data) {
+                console.log("something changed! min: " + data.values.min + " max: " + data.values.max);
+
+                dateI = data.values.min;
+                dateO = data.values.max;
+
+                //filter days from slider range
+                filteredEntries = filterDays(filterHours(fdata));
+                updateVisualizations("sliderDate");
+            });
+        }
+
+        function filterDays (data) {
+            console.log("filtering days ... ");
+            var result = [];
+            for (var i = 0; i < data.length; ++i) {
+                var days = data[i].filter(function (d) {
+                    return (d["createdAt"] > dateI && d["createdAt"] < dateO)
+                });
+                result.push(days)
+            }
+            return result
+        }
+
+        function filterHours (data) {
+            console.log("filtering hours ... ");
+            var result = [];
+            for (var i = 0; i < data.length; ++i) {
+                var hours = data[i].filter(function (d) {
+                    if (timeI == timeO) {
+                        return true
+                    }
+                    else if (timeI < timeO) {
+                        return (d["createdAt"].getHours() > timeI && d["createdAt"].getHours() < timeO)
+                    }
+                    else {
+                        return (d["createdAt"].getHours() > timeI || d["createdAt"].getHours() < timeO)
+                    }
+                });
+                result.push(hours)
+            }
+            return result
+        }
+
+        function reformat(data) {
+            return data["results"].map(function (d) {
+                for (var i = 0; i < d["data"].length; ++i) {
+                    if (d["data"][i]["register"] == 2014) {
+                        d.airTemperature = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2015) {
+                        d.humidity = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2016) {
+                        d.co2 = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2017) {
+                        d.mainPh = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2018) {
+                        d.mainEc = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2019) {
+                        d.mainTemperature = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2026) {
+                        d.seedingPh = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2027) {
+                        d.seedingEc = d["data"][i]["statValue"]
+                    }
+                    else if (d["data"][i]["register"] == 2028) {
+                        d.seedingTemperature = d["data"][i]["statValue"]
+                    }
+                }
+                d["createdAt"] = new Date(d["createdAt"]);
+                delete(d["data"]);
+                return d;
+            })
+        }
+
+        function dataLoaded(error, farm1, farm2, farm3, farm4, farm5) {
+            var farms = [farm1, farm2, farm3, farm4, farm5];
+            var i = 1;
+            console.log("\ndata loaded \nformatting:");
+            formatted_data = farms.map(function (f) {
+                console.log("\n Farm " + i);
+                ++i;
+                return reformat(f);
+            });
+            console.log("\ndata formatted");
+            dateI = dataExt(formatted_data, "createdAt")[0];
+            dateO = dataExt(formatted_data, "createdAt")[1];
+            fdata = reduceTime(formatted_data, 1);
+            console.log("\ndata reduced");
+
+            visualizations();
+        }
+
+        function loadFiles () {
+            //noinspection JSUnresolvedFunction
+            queue()
+                    .defer(d3.json, "dataset/updated-file.json")
+                    .defer(d3.json, "dataset/farm_2_data.json")
+                    .defer(d3.json, "dataset/farm_3_data.json")
+                    .defer(d3.json, "dataset/farm_4_data.json")
+                    .defer(d3.json, "dataset/farm_5_data.json")
+                    .await(function (error, farm1, farm2, farm3, farm4, farm5) {
+                        dataLoaded(error, farm1, farm2, farm3, farm4, farm5);
+                    });
+        }
+
+        loadFiles();
+
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top - 250
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+
+    });
+
+    //*************************************************************************
+    //***************************    debuggin    ******************************
+    //*************************************************************************
+
+
+    //test for dataExt -- can also be used for get_obj_av once dataExt is confirmed
+    function checkdata (data) {
+        var count = 0;
+        sensors.forEach(function(s) {
+            var ext = dataExt(data, s);
+            for (var i = 0; i < data.length; ++i) {
+                for (var j = 0; j < data[i].length; ++j) {
+                    if (data[i][j][s] > ext[1] || data[i][j][s] < ext[0]) {
+                        ++count;
+                        console.log(count+". PROBLEM : \n sensor: "+ s + "\n farm: " + (i+1) + "\n entry: " + j + "\n" + "range: " +ext + " | value: "+ data[i][j][s])
+                    }
+                }
+            }
+        });
+        console.log("CHECK FINISHED")
+    }
+
+</script>
+
+</body>
+</html>

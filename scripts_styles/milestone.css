@@ -1,0 +1,85 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	width:100%; /*for some reason, paracoords needs this in html*/
+	height:90%; /*for some reason, paracoords needs this in html*/
+}
+
+body {
+	overflow-x: hidden;
+	width:100%; /*for some reason, paracoords needs this in body*/
+	height:95%; /*for some reason, paracoords needs this in body*/
+}
+
+#header {
+	text-align: center;
+	width:100%;
+	background-color: navajowhite;
+}
+
+.parcoords{
+	width:70%;
+	height:70%;
+	position:absolute;
+	right:0;
+}
+
+#page-wrap {
+	min-width: 780px;
+	max-width: 1260px;
+	margin: 10px auto;
+}
+
+#page-wrap #inside {
+	margin: 10px 10px 0px 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#main-content {
+	padding-left: 230px;
+	padding-top: 20px;
+}
+	
+#left-sidebar {
+	width: 150px;
+	float: left;
+	padding-left: 15px;
+	padding-top: 20px;
+}
+
+#footer {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+text {
+	font-size: 9px;
+}
+
+text.label {
+	font-weight: bold;
+}
+
+/*--------------line graph---------------*/
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.x.axis path {
+	display: none;
+}
+
+.line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}
